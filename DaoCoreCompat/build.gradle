@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
 
 android {
@@ -17,6 +18,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
         }
     }
     compileOptions {
@@ -39,4 +45,17 @@ dependencies {
     compileOnly 'io.reactivex:rxjava:1.1.8'
     implementation 'net.zetetic:sqlcipher-android:4.6.1@aar'
     implementation 'androidx.sqlite:sqlite:2.2.0'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'org.greenrobot'
+                artifactId = 'greendao-compat'
+                version = rootProject.version
+            }
+        }
+    }
 }

@@ -13,6 +13,14 @@ java {
 
 apply from: rootProject.file("gradle/publish.gradle")
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
 javadoc {
     failOnError = false
     title = " greenDAO API ${version} API"

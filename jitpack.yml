@@ -1,0 +1,4 @@
+jdk:
+  - openjdk17
+install:
+  - ./gradlew :greendao-api:publishToMavenLocal :DaoCoreCompat:publishToMavenLocal -x test
